@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Menu :openCloseForm="openCloseForm" :showForm="showForm"/>
+
+  <div class="container">
+    <tweet-form :showForm="showForm"/>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Menu from './components/Menu'
+import TweetForm from './components/TweetForm'
+import useFormTweet from './hooks/useFormTweet'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Menu,
+    TweetForm
+  },
+  setup() {
+    return {
+      ...useFormTweet()
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
