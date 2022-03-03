@@ -1,20 +1,22 @@
 import { v4 as uuidv4 } from "uuid";
-import { TWEET } from '../utils/constant'
-import { size } from 'lodash'
+import { TWEET } from "../utils/constant"
+import { size } from "lodash"
 
 export function saveTweetApi(tweet, username) {
   const tweets = getTweetApi()
 
-  if(size(tweets)) {
-    const tweetTemp = [{
-      id: uuidv4(),
-      tweet: tweet,
-      username: username,
-      created_at: new Date()
-    }]
+  if(size(tweets) === 0) {
+    const tweetTemp = [
+      {
+        id: uuidv4(),
+        tweet: tweet,
+        username: username,
+        created_at: new Date()
+      }
+    ]
 
     localStorage.setItem(TWEET, JSON.stringify(tweetTemp))
-  }else {
+  } else {
     tweets.push({
       id: uuidv4(),
       tweet,
@@ -24,7 +26,6 @@ export function saveTweetApi(tweet, username) {
 
     localStorage.setItem(TWEET, JSON.stringify(tweets))
   }
-
 }
 
 export function getTweetApi() {
