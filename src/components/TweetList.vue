@@ -5,25 +5,33 @@
       <p class="tweet__title">{{ tweet.username }}</p>
       <p class="tweet__text">{{ tweet.tweet }}</p>
       <span>{{ formatDate(tweet.created_at) }}</span>
+      <span class="delete-icon" @click="deleteTweet(tweet.id)">X</span>
     </div>
   </div>
 </template>
 
 <script>
-import { getTweetApi } from '../api/tweet'
 import moment from "moment"
 import "moment/locale/es"
+import { deleteTweetApi } from '../api/tweet'
 
   export default {
     props: {
-      tweets: Array
+      tweets: Array,
+      reloadTweets: Function
     },
     setup(props) {
       const formatDate = (date) => {
         return moment(date).fromNow()
       }
 
-      return { formatDate }
+      const deleteTweet = (id) => {
+        deleteTweetApi(id)
+        props.reloadTweets()
+      }
+
+
+      return { formatDate, deleteTweet }
     }
   }
 </script>
@@ -37,6 +45,7 @@ import "moment/locale/es"
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 
     p {
       margin: 0;
@@ -54,5 +63,8 @@ import "moment/locale/es"
       position: absolute;
       right: 10px;
     }
+  }
+  .delete-icon {
+    cursor: pointer;
   }
 </style>

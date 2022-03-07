@@ -6,7 +6,7 @@
   </div>
 
   <div class="container">
-    <TweetList :tweets="tweets"/>
+    <TweetList :tweets="tweets" :reloadTweets="reloadTweets" />
   </div>
 </template>
 
